@@ -1,0 +1,65 @@
+@import "../src/assets/stylings/base";
+
+// ***** COMPONENT styling *****
+mat-form-field {
+  width: 100%;
+}
+
+table {
+  width: 100%;
+}
+
+tr.expandable-row:not(.expanded-row):hover {
+  background: rgb(33, 33, 33);
+}
+
+tr.expanded-row-details:not(.expanded-row) {
+  height: 0;
+}
+
+.expanded-row {
+  background: rgb(99, 99, 99);
+}
+
+.expanded-row-content {
+  overflow: hidden;
+  display: flex;
+  justify-content: flex-start;
+
+  & table {
+    width: 50%;
+    background: rgb(80, 80, 80);
+
+    & td {
+      width: 25%;
+    }
+  }
+}
+
+// ***** PROJECT styling *****
+
+.prj-form-container {
+  margin-top: $spacing-large;
+  margin-bottom: $spacing-normal;
+}
+
+.prj-container-right {
+  display: flex;
+  justify-content: flex-end;
+
+  & button {
+    margin-left: $spacing-small;
+  }
+}
+
+.prj-container-left {
+  display: flex;
+  justify-content: flex-start;
+
+  & button {
+    margin-right: $spacing-small;
+  }
+}
+
+/*html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }*/

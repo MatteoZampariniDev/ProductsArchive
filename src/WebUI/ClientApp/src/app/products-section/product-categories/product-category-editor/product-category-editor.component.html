@@ -1,0 +1,17 @@
+<h1>{{title}}</h1>
+<p>{{description}}</p>
+
+<div class="prj-form-container" [formGroup]="form" (ngSubmit)="onSubmit()">
+	<div>
+		<mat-form-field appearance="fill">
+			<mat-label>Nome</mat-label>
+			<input matInput id="name" formControlName="name" required>
+		</mat-form-field>
+	</div>
+
+	<div class="prj-container-right">
+		<button *ngIf="id" mat-raised-button color="accent" (click)="onSubmit()" [disabled]="form.invalid">Salva</button>
+		<button *ngIf="!id" mat-raised-button color="accent" (click)="onSubmit()" [disabled]="form.invalid">Aggiungi</button>
+		<button mat-raised-button color="warn" [routerLink]="formExitRoute">Annulla</button>
+	</div>
+</div>

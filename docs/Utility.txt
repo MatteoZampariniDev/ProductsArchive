@@ -1,0 +1,18 @@
+*** Efficient Database Queries in EFCore ***
+https://www.thereformedprogrammer.net/building-efficient-database-queries-using-entity-framework-core-and-automapper/
+
+*** Identity ***
+https://github.com/jasontaylordev/CleanArchitecture/issues/325#issuecomment-890833475
+https://www.yogihosting.com/aspnet-core-identity-custom-user-properties/
+
+*** Local Storage ***
+https://blog.briebug.com/blog/managing-local-storage-in-angular
+
+// test login
+Username/email: administrator@localhost
+Pw: Administrator1!
+Role: Administrator
+
+Username/email: user@localhost
+Pw: CommonUser1!
+Role: CommonUser

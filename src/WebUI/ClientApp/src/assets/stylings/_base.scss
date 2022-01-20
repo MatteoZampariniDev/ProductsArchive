@@ -1,0 +1,22 @@
+@import "./base/base-settings";
+
+h1,h2,h3,h4,h5,h6
+{
+    // Set heading font weights
+    font-weight: $font-weight-heading;
+}
+
+// Set heading sizes
+h1 { font-size: $header-size-1; }
+h2 { font-size: $header-size-2; }
+h3 { font-size: $header-size-3; }
+h4 { font-size: $header-size-4; }
+h5 { font-size: $header-size-5; }
+h6 { font-size: $header-size-6; }
+
+body {
+    // Default line heights
+    line-height: $base-line-height;
+    // Default font weights
+    font-weight: $font-weight-normal;
+}

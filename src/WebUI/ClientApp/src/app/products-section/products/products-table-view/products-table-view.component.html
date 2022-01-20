@@ -1,0 +1,71 @@
+<h1>{{title}}</h1>
+<p>{{description}}</p>
+
+<div>
+	<!-- New button -->
+	<div class="prj-container-right">
+		<button mat-raised-button color="accent" [routerLink]="itemEditorRoute" *ngIf="hasRole('Administrator')">Aggiungi</button>
+	</div>
+
+	<div class="prj-form-container" [formGroup]="filterForm">
+		<!-- Search bar -->
+		<mat-form-field appearance="fill">
+			<mat-label>Cerca</mat-label>
+			<input matInput id="filterQuery" formControlName="filterQuery" (keyup)="onFilterQueryChanged()">
+		</mat-form-field>
+	</div>
+</div>
+
+<div class="mat-elevation-z8">
+	<table mat-table [dataSource]="tableData"
+		   matSort [matSortActive]="defaultSortHeaderId" [matSortDirection]="defaultSortDirection" (matSortChange)="onFilterOrSortChanged()">
+
+		<!-- productId column -->
+		<ng-container matColumnDef="productId">
+			<th mat-header-cell *matHeaderCellDef mat-sort-header>{{tableHeaders[0]}}</th>
+			<td mat-cell *matCellDef="let obj"> {{obj.productId}} </td>
+		</ng-container>
+
+		<!-- productGroupName column -->
+		<ng-container matColumnDef="group.name">
+			<th mat-header-cell *matHeaderCellDef mat-sort-header>{{tableHeaders[1]}}</th>
+			<td mat-cell *matCellDef="let obj"> {{obj.group? obj.group.name : '-'}} </td>
+		</ng-container>
+
+		<!-- productSize column -->
+		<ng-container matColumnDef="size.name">
+			<th mat-header-cell *matHeaderCellDef mat-sort-header>{{tableHeaders[2]}}</th>
+			<td mat-cell *matCellDef="let obj"> {{obj.size? obj.size.name : '-'}} </td>
+		</ng-container>
+
+		<!-- net weight column -->
+		<ng-container matColumnDef="netWeight">
+			<th mat-header-cell *matHeaderCellDef mat-sort-header>{{tableHeaders[3]}}</th>
+			<td mat-cell *matCellDef="let obj"> {{obj.netWeight? obj.netWeight : '-'}} </td>
+		</ng-container>
+
+		<!-- buttons column -->
+		<ng-container matColumnDef="buttons">
+			<th mat-header-cell *matHeaderCellDef mat-sort-header disabled></th>
+			<td mat-cell *matCellDef="let obj">
+				<div class="prj-container-right">
+					<button mat-raised-button color="accent" [routerLink]="[itemEditorRoute, obj.id]" *ngIf="hasRole('Administrator')">Modifica</button>
+					<button mat-raised-button color="warn" (click)="onDeleteItemRequest(obj)" *ngIf="hasRole('Administrator')">Elimina</button>
+				</div>
+			</td>
+		</ng-container>
+
+		<!-- header filler -->
+		<tr mat-header-row *matHeaderRowDef="tableHeadersIds"></tr>
+
+		<!-- rows filler -->
+		<tr mat-row *matRowDef="let row; columns: tableHeadersIds;"></tr>
+
+		<!-- row shown when there is no data -->
+		<tr class="mat-row" *matNoDataRow>
+			<td class="mat-cell" [attr.colspan]="tableHeadersIds.length">Nessun prodotto trovato</td>
+		</tr>
+	</table>
+
+	<mat-paginator pageIndex="0" pageSize="10" [pageSizeOptions]="[5, 10, 25, 50]" (page)="onPageChanged($event)" showFirstLastButtons></mat-paginator>
+</div>

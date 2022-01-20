@@ -1,0 +1,39 @@
+<h1>{{title}}</h1>
+<p>{{description}}</p>
+
+<div class="prj-form-container" [formGroup]="form" (ngSubmit)="onSubmit()">
+    <div>
+        <!-- ID input field -->
+        <mat-form-field appearance="fill">
+            <mat-label>ID</mat-label>
+            <input matInput id="groupId" formControlName="groupId" required>
+        </mat-form-field>
+
+        <!-- Name input field -->
+        <mat-form-field appearance="fill">
+            <mat-label>Nome</mat-label>
+            <input matInput id="name" formControlName="name">
+        </mat-form-field>
+
+        <!-- Description input field -->
+        <mat-form-field appearance="fill">
+            <mat-label>Descrizione</mat-label>
+            <input matInput id="description" formControlName="description">
+        </mat-form-field>
+
+        <!-- Category selection -->
+        <mat-form-field appearance="fill">
+            <mat-label>Categoria</mat-label>
+            <mat-select id="category" formControlName="category" [compareWith]="compareById" required>
+                <mat-option [value]="category" *ngFor="let category of productCategories; let i = index">{{category.name}}</mat-option>
+                <mat-option *ngIf="!productCategories || productCategories.length == 0">Nessuna categoria disponibile</mat-option>
+            </mat-select>
+        </mat-form-field>
+    </div>
+
+    <div class="prj-container-right">
+        <button *ngIf="id" mat-raised-button color="accent" (click)="onSubmit()" [disabled]="form.invalid">Salva</button>
+        <button *ngIf="!id" mat-raised-button color="accent" (click)="onSubmit()" [disabled]="form.invalid">Aggiungi</button>
+        <button mat-raised-button color="warn" [routerLink]="formExitRoute">Annulla</button>
+    </div>
+</div>

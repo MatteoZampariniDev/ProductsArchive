@@ -1,0 +1,70 @@
+<header>
+  <nav class="
+      navbar navbar-expand-sm navbar-toggleable-sm
+      border-bottom
+      box-shadow
+      mb-3">
+
+    <div class="container">
+      <img class="navbar-brand" src="/img/nav-logo.jpg" [routerLink]="['/']" />
+
+      <button mat-button
+              class="navbar-toggler"
+              type="button"
+              data-toggle="collapse"
+              data-target=".navbar-collapse"
+              aria-label="Toggle navigation"
+              [attr.aria-expanded]="isExpanded"
+              (click)="toggle()">
+        <mat-icon>list</mat-icon>
+      </button>
+
+      <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse"
+           [ngClass]="{ show: isExpanded }">
+        <app-login-menu></app-login-menu>
+
+        <ul class="navbar-nav flex-grow">
+
+          <li class="nav-item" [routerLinkActive]="['link-active']" [routerLinkActiveOptions]="{ exact: true }">
+            <a class="nav-link" [routerLink]="['/']">Home</a>
+          </li>
+
+          <li class="nav-item" [routerLinkActive]="['link-active']">
+            <a class="nav-link" [routerLink]="categoriesRoute">Categorie</a>
+          </li>
+
+          <li class="nav-item" [routerLinkActive]="['link-active']">
+            <a class="nav-link" [routerLink]="groupsRoute">Gruppi</a>
+          </li>
+
+          <li class="nav-item" [routerLinkActive]="['link-active']">
+            <a class="nav-link" [routerLink]="productsRoute">Prodotti</a>
+          </li>
+
+          <li class="nav-item" [routerLinkActive]="['link-active']">
+            <a class="nav-link" [routerLink]="sizesRoute">Formati</a>
+          </li>
+
+          <li class="nav-item" *ngIf="hasRole('Administrator')">
+            <a class="nav-link" href="/api" target="_blank">API</a>
+          </li>
+        </ul>
+      </div>
+
+      <ng-container>
+        <button mat-button [matMenuTriggerFor]="menu">
+          <mat-icon>language</mat-icon>
+          {{currentCulture.name}}
+          <mat-icon>arrow_drop_down</mat-icon>
+        </button>
+        <mat-menu #menu="matMenu">
+          <a mat-menu-item (click)="setCulture(enLang)">English</a>
+          <a mat-menu-item (click)="setCulture(frLang)">French</a>
+          <a mat-menu-item (click)="setCulture(deLang)">German</a>
+          <a mat-menu-item (click)="setCulture(itLang)">Italian</a>
+          <a mat-menu-item (click)="setCulture(esLang)">Spanish</a>
+        </mat-menu>
+      </ng-container>
+    </div>
+  </nav>
+</header>

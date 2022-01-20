@@ -1,0 +1,12 @@
+*** Migrate Database ***
+dotnet ef migrations add MIGRATION_NAME --project src/Infrastructure --startup-project src/WebUI --output-dir Persistence/Migrations
+
+*** Update Database ***
+dotnet ef database update --project src/Infrastructure --startup-project src/WebUI
+
+*** Remove Migration *** (do NOT remove an applied migration) 
+dotnet ef migrations remove --project src/Infrastructure --startup-project src/WebUI
+
+
+*** Example ***
+dotnet ef migrations add Migration_2 --project src/Infrastructure --startup-project src/WebUI --output-dir Persistence/Migrations
