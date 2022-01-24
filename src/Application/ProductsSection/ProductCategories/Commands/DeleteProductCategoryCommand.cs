@@ -4,6 +4,10 @@ using ProductsArchive.Domain.Entities.ProductsSection;
 
 namespace ProductsArchive.Application.ProductsSection.ProductCategories.Commands;
 
+/// <summary>
+/// Delete an existing <see cref="ProductCategory"/>
+/// </summary>
+/// <param name="Id"></param>
 [Authorize(Roles = "Administrator")]
 public record DeleteProductCategoryCommand(Guid Id) : IRequest;
 
@@ -15,6 +19,7 @@ public class DeleteProductCategoryCommandValidator : AbstractValidator<DeletePro
     {
         _context = context;
 
+        // check if a ProductCategory with provided id exists
         RuleFor(x => x.Id)
             .MustAsync(Exists)
             .WithMessage("Id not valid.");
@@ -38,6 +43,7 @@ public class DeleteProductCategoryCommandHandler : IRequestHandler<DeleteProduct
 
     public async Task<Unit> Handle(DeleteProductCategoryCommand request, CancellationToken cancellationToken)
     {
+        // get the ProductCategory with localized properties
         var category = await _context.ProductCategories
             .Where(x => x.Id == request.Id)
             .IncludeLocalizedProperty(x => x.Name!)
@@ -48,6 +54,7 @@ public class DeleteProductCategoryCommandHandler : IRequestHandler<DeleteProduct
             throw new NotFoundException(nameof(ProductCategory), request.Id);
         }
 
+        // remove category and localized properties
         _context.LocalizedStrings.Remove(category.Name);
         _context.ProductCategories.Remove(category);
 

@@ -4,6 +4,9 @@ using ProductsArchive.Domain.Entities.ProductsSection;
 
 namespace ProductsArchive.Application.ProductsSection.ProductCategories.Commands;
 
+/// <summary>
+/// Update a <see cref="ProductCategory"/>
+/// </summary>
 [Authorize(Roles = "Administrator")]
 public record UpdateProductCategoryCommand : IRequest
 {
@@ -19,6 +22,7 @@ public class UpdateProductCategoryCommandValidator : AbstractValidator<UpdatePro
     {
         _context = context;
 
+        // check if a category with provided Id exists
         RuleFor(x => x.Id)
             .MustAsync(Exists)
             .WithMessage("Id not valid.");
@@ -44,6 +48,7 @@ public class UpdateProductCategoryCommandHandler : IRequestHandler<UpdateProduct
 
     public async Task<Unit> Handle(UpdateProductCategoryCommand request, CancellationToken cancellationToken)
     {
+        // get category with localized properties
         var category = await _context.ProductCategories
             .Where(x => x.Id == request.Id)
             .IncludeLocalizedProperty(x => x.Name!)
@@ -54,7 +59,11 @@ public class UpdateProductCategoryCommandHandler : IRequestHandler<UpdateProduct
             throw new NotFoundException(nameof(ProductCategory), request.Id);
         }
 
+        // update localized property
         category.Name![_culture.CurrentCulture] = request.Name;
+
+        // set EntityState.Modified otherwise the change in the localized property
+        // is not seen as a change to the entity
         _context.SetEntityState(category, EntityState.Modified);
 
         await _context.SaveChangesAsync(cancellationToken);

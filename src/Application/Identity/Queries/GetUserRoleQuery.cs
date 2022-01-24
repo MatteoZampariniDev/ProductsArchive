@@ -1,4 +1,9 @@
 ﻿namespace ProductsArchive.Application.Identity.Queries;
+
+/// <summary>
+/// Gets the role of a user
+/// </summary>
+/// <param name="Id"></param>
 public record GetUserRoleQuery(Guid Id) : IRequest<string?>;
 
 public class GetUserRoleQueryValidator : AbstractValidator<GetUserRoleQuery>
@@ -9,6 +14,7 @@ public class GetUserRoleQueryValidator : AbstractValidator<GetUserRoleQuery>
     {
         _identityService = identityService;
 
+        // check if a user with the provided id exists
         RuleFor(x => x.Id)
             .MustAsync(Exists)
             .WithMessage("Id not valid.");
